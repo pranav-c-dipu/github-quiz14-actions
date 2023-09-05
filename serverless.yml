@@ -1,0 +1,112 @@
+service: quiz-app15
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ap-south-1 
+  environment:
+    user_pool_id: {Ref: UserPool}
+    client_id: {Ref: UserClient}
+    table_name: !Ref quizTable
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - cognito-idp:AdminAddUserToGroup
+        - cognito-idp:AdminInitiateAuth
+      Resource: "*"
+
+
+    
+
+functions:
+  createQuiz:
+    handler: handler.createQuiz
+    environment:
+      QUIZ_TABLE_NAME: !Ref quizTable
+
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource: !GetAtt quizTable.Arn
+    events:
+      - http:
+          method: post
+          path: Quiz
+  getallQuiz:
+    handler: handler.getallQuiz
+    iamRoleStatements:
+      - Effect: Allow
+        Action: 
+          - dynamodb:Scan
+        Resource: !GetAtt quizTable.Arn    
+    events:
+      - http:
+          path: Quiz
+          method: get
+          cors: true 
+
+
+plugins:
+  - serverless-iam-roles-per-function  
+
+resources:
+  Resources:
+    quizTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Quiz-app15db
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: quizId
+            AttributeType: S
+        KeySchema:
+          - AttributeName: quizId
+            KeyType: HASH
+
+    UserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: quiz-15,
+        EmailConfiguration:
+          EmailSendingAccount: COGNITO_DEFAULT        
+        AutoVerifiedAttributes:
+          - email
+        Schema:
+          - Name: email
+            Required: true
+            Mutable: true
+            #name
+          - Name: name
+            Required: true
+            Mutable: true
+            #phonenumber         
+          - Name: phone_number
+            Required: true
+            Mutable: true
+            #location
+          - Name: country
+            AttributeDataType: String
+            #groupName
+          - Name: group
+            AttributeDataType: String
+            Required: false
+            #Date of Birth
+          - Name: birthdate
+            Required: false
+        Policies:
+          PasswordPolicy:
+            MinimumLength: 6 
+
+    UserClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: client-15
+        GenerateSecret: false
+        UserPoolId: { Ref: UserPool }
+        AccessTokenValidity: 5
+        IdTokenValidity: 5
+        ExplicitAuthFlows:
+          - "ADMIN_NO_SRP_AUTH"                        
+
