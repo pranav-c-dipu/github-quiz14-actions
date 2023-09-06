@@ -1,3 +1,6 @@
+const aws=require('aws-sdk');
+const cognito= new aws.CognitoIdentityServiceProvider();
+
 module.exports.handler = async (event) => {
     try {
         const { eMail, confirmationCode } = JSON.parse(event.body)
