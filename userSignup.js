@@ -3,9 +3,10 @@ const cognito= new aws.CognitoIdentityServiceProvider();
 
 module.exports.handler = async (event) => {
     try {
-       
-        let { email, name, country, phone_number, password, birthdate } = JSON.parse(event.body);
+        const requestBody = JSON.parse(event.body);
+        const { email, name, country, phone_number, password, birthdate } = requestBody;
         console.log(event.body);
+        console.log('Parsed Request Body:', requestBody);
         groupName = "USER";
 
         const user_pool_id = process.env.COGNITO_USER_POOL_ID;
@@ -43,7 +44,7 @@ module.exports.handler = async (event) => {
             ],
             // MessageAction: 'SUPPRESS'
         }
-        console.log('Paramsssssssssssssss:', params);
+        // console.log('Paramsssssssssssssss:', params);
 
         const response = await cognito.signUp(params).promise();
         console.log(response);
