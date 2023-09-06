@@ -18,7 +18,7 @@ provider:
         - cognito-idp:ConfirmSignUp
         - cognito-idp:AdminCreateUse
         - cognito-idp:AdminConfirmSignUp
-      Resource: "*"
+      Resource: arn:aws:cognito-idp:ap-south-1:594264654627:userpool/ap-south-1_oMWDjn0y7
 
 
     
@@ -38,6 +38,7 @@ functions:
       - http:
           method: post
           path: Quiz
+          
   getallQuiz:
     handler: handler.getallQuiz
     iamRoleStatements:
@@ -45,6 +46,11 @@ functions:
         Action: 
           - dynamodb:Scan
         Resource: !GetAtt quizTable.Arn 
+    events:
+      - http:
+          path: Quiz
+          method: get
+          cors: true         
 
   userSignUp:
     handler: userSignup.handler
@@ -53,13 +59,19 @@ functions:
           method: post
           path: user/signup 
 
+
   userSignupConfirmation: 
     handler: confirmUser.handler
     events:
       - http:
           path: user/confirmsignup
           method: post
-          cors: true   
+          cors: true
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - cognito-idp:ConfirmSignUp
+        Resource: arn:aws:cognito-idp:ap-south-1:594264654627:userpool/ap-south-1_oMWDjn0y7
 
   loginUser:
     handler: userSignIn.handler
@@ -71,11 +83,6 @@ functions:
 
 
 
-    events:
-      - http:
-          path: Quiz
-          method: get
-          cors: true 
 
 
 plugins:
