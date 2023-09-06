@@ -47,7 +47,6 @@ exports.createQuiz = async (event) => {
 
   try {
 
-
     await db.put(params).promise();
     return sendResponse(200, { message: 'Quiz data saved successfully' });
 
@@ -55,7 +54,6 @@ exports.createQuiz = async (event) => {
   catch (error) {
     console.error('Error saving quiz data:', error);
     return sendResponse(500, { message: 'Error saving quiz data', error: error });
-
 
   }
 };

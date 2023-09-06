@@ -14,6 +14,10 @@ provider:
       Action:
         - cognito-idp:AdminAddUserToGroup
         - cognito-idp:AdminInitiateAuth
+        - cognito-idp:SignUp
+        - cognito-idp:ConfirmSignUp
+        - cognito-idp:AdminCreateUse
+        - cognito-idp:AdminConfirmSignUp
       Resource: "*"
 
 
@@ -40,7 +44,33 @@ functions:
       - Effect: Allow
         Action: 
           - dynamodb:Scan
-        Resource: !GetAtt quizTable.Arn    
+        Resource: !GetAtt quizTable.Arn 
+
+  userSignUp:
+    handler: userSignup.handler
+    events:
+      - http:
+          method: post
+          path: user/signup 
+
+  userSignupConfirmation: 
+    handler: confirmUser.handler
+    events:
+      - http:
+          path: user/confirmsignup
+          method: post
+          cors: true   
+
+  loginUser:
+    handler: userSignIn.handler
+    events:
+      - http:
+          path: user/login
+          method: post
+
+
+
+
     events:
       - http:
           path: Quiz
