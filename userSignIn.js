@@ -1,11 +1,12 @@
-const aws=require('aws-sdk');
+const aws = require('aws-sdk');
 const cognito= new aws.CognitoIdentityServiceProvider();
 
 module.exports.handler = async (event) => {
     try {
 
-        const { eMail, password } = JSON.parse(event.body)
-        const { user_pool_id, client_id } = process.env
+        const { eMail, password } = JSON.parse(event.body);
+        const user_pool_id = process.env.COGNITO_USER_POOL_ID;
+        const client_id = process.env.COGNITO_CLIENT_ID;
         const params = {
             AuthFlow: "ADMIN_NO_SRP_AUTH",
             UserPoolId: user_pool_id,
