@@ -147,3 +147,20 @@ resources:
         ExplicitAuthFlows:
           - "ADMIN_NO_SRP_AUTH"                        
 
+    AdminsGroup:
+      Type: AWS::Cognito::UserPoolGroup
+      Properties: 
+        Description: "Admins"
+        GroupName: "ADMIN"
+        Precedence: 2
+        #RoleArn: ""
+        UserPoolId: !Ref UserPool
+    
+    UsersGroup:
+      Type: AWS::Cognito::UserPoolGroup
+      Properties: 
+        Description: " Users"
+        GroupName: "USER"
+        Precedence: 3
+        #RoleArn: ""
+        UserPoolId: !Ref UserPool
