@@ -6,8 +6,8 @@ provider:
   runtime: nodejs18.x
   region: ap-south-1 
   environment:
-    user_pool_id: {Ref: UserPool}
-    client_id: {Ref: UserClient}
+    COGNITO_USER_POOL_ID: !Ref UserPool
+    COGNITO_CLIENT_ID:  !Ref UserPoolClient
     table_name: !Ref quizTable
   iamRoleStatements:
     - Effect: Allow
@@ -38,7 +38,7 @@ functions:
       - http:
           method: post
           path: Quiz
-          
+
   getallQuiz:
     handler: handler.getallQuiz
     iamRoleStatements:

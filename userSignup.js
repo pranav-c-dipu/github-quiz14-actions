@@ -7,7 +7,9 @@ module.exports.handler = async (event) => {
         let { email, name, country, phone_number, password, birthdate } = JSON.parse(event.body);
         console.log(event.body);
         groupName = "USER";
-        const { user_pool_id, client_id } = process.env;
+
+        const user_pool_id = process.env.COGNITO_USER_POOL_ID;
+        const client_id = process.env.COGNITO_CLIENT_ID;
         console.log(user_pool_id);
         const params = {
             ClientId: client_id,
@@ -41,6 +43,8 @@ module.exports.handler = async (event) => {
             ],
             // MessageAction: 'SUPPRESS'
         }
+        console.log('Paramsssssssssssssss:', params);
+
         const response = await cognito.signUp(params).promise();
         console.log(response);
         const paramsForGroup = {

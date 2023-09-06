@@ -4,7 +4,8 @@ const cognito= new aws.CognitoIdentityServiceProvider();
 module.exports.handler = async (event) => {
     try {
         const { eMail, confirmationCode } = JSON.parse(event.body)
-        const { client_id } = process.env
+ 
+        const client_id = process.env.COGNITO_CLIENT_ID;
         const params = {
             ConfirmationCode: confirmationCode,
             ClientId: client_id,
