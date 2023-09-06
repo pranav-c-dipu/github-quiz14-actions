@@ -7,7 +7,7 @@ provider:
   region: ap-south-1 
   environment:
     COGNITO_USER_POOL_ID: !Ref UserPool
-    COGNITO_CLIENT_ID:  !Ref UserPoolClient
+    COGNITO_CLIENT_ID:  !Ref UserClient
     table_name: !Ref quizTable
   iamRoleStatements:
     - Effect: Allow
