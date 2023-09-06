@@ -12,7 +12,6 @@ module.exports.handler = async (event) => {
         const params = {
             ClientId: client_id,
             Password: password,
-          
             Username: email,
             UserAttributes: [
                 {
@@ -55,6 +54,7 @@ module.exports.handler = async (event) => {
         return sendResponse(200, { message: 'User registration successful' })
     }
     catch (error) {
+        console.error("cloudwatch log", error);
         const message = error.message ? error.message : 'Internal server error'
         return sendResponse(500, { message })
     }
