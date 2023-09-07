@@ -20,13 +20,15 @@ provider:
         - cognito-idp:AdminConfirmSignUp
         - cognito-idp:AdminGetUser
         - cognito-idp:ForgotPassword
-        - cognito-idp:ConfirmForgotPassword        
+        - cognito-idp:ConfirmForgotPassword
+        - cognito-idp:GlobalSignOut        
       Resource: "*"
 
 
     
 
 functions:
+
   createQuiz:
     handler: handler.createQuiz
     environment:
@@ -40,7 +42,7 @@ functions:
     events:
       - http:
           method: post
-          path: Quiz
+          path: createQuiz
 
   getallQuiz:
     handler: handler.getallQuiz
@@ -51,7 +53,7 @@ functions:
         Resource: !GetAtt quizTable.Arn 
     events:
       - http:
-          path: Quiz
+          path: getallQuiz
           method: get
           cors: true         
 
@@ -68,8 +70,12 @@ functions:
     events:
       - http:
           method: post
-          path: Quiz 
-          cors: true    
+          path: getUser
+          cors: true
+          authorizer:
+              name: QuizAuthorizer
+              type: COGNITO_USER_POOLS
+              arn: !GetAtt UserPool.Arn     
 
 
   forgotPassword:
@@ -77,7 +83,7 @@ functions:
     events:
       - http:
           method: post
-          path: Quiz 
+          path: user/forgotPassword
           cors: true   
 
   confirmPassword:
@@ -85,7 +91,7 @@ functions:
     events:
       - http:
           method: post
-          path: Quiz 
+          path: user/forgotPassword/confirm 
           cors: true            
         
 
@@ -111,6 +117,16 @@ functions:
           path: user/login
           method: post
 
+  signOut:
+    handler: signOut.handler
+    events:
+      - http:
+          path: user/logout
+          method: post
+          authorizer:
+              name: QuizAuthorizer
+              type: COGNITO_USER_POOLS
+              arn: !GetAtt UserPool.Arn           
 
 
 

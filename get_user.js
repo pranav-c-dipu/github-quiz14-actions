@@ -7,9 +7,20 @@ const user_pool_id = process.env.COGNITO_USER_POOL_ID;
 exports.handler = async (event) => {
   try{
     const { email} = JSON.parse(event.body);
+
+    const authorizationHeader = event.headers['Authorization'];
+    if (!authorizationHeader) {
+      return {
+        statusCode: 401,
+        body: JSON.stringify({ message: 'Authorization header missing' }),
+      };
+    }
+
+    const token = authorizationHeader.split(' ')[1];
     const params = {
         UserPoolId: user_pool_id,
-        Username: email
+        Username: email,
+        AccessToken: token
     };
     const response = await cognito.adminGetUser(params).promise();
     const userAttributes = response.UserAttributes;
