@@ -3,13 +3,13 @@ const cognito= new aws.CognitoIdentityServiceProvider();
 
 module.exports.handler = async (event) => {
     try {
-        const { eMail, confirmationCode } = JSON.parse(event.body)
+        const { email, confirmationCode } = JSON.parse(event.body)
  
         const client_id = process.env.COGNITO_CLIENT_ID;
         const params = {
             ConfirmationCode: confirmationCode,
             ClientId: client_id,
-            Username: eMail
+            Username: email
         }
         await cognito.confirmSignUp(params).promise();
         return sendResponse(200, { message: 'User email verified' })

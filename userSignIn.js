@@ -4,7 +4,7 @@ const cognito= new aws.CognitoIdentityServiceProvider();
 module.exports.handler = async (event) => {
     try {
 
-        const { eMail, password } = JSON.parse(event.body);
+        const { email, password } = JSON.parse(event.body);
         const user_pool_id = process.env.COGNITO_USER_POOL_ID;
         const client_id = process.env.COGNITO_CLIENT_ID;
         const params = {
@@ -12,7 +12,7 @@ module.exports.handler = async (event) => {
             UserPoolId: user_pool_id,
             ClientId: client_id,
             AuthParameters: {
-                USERNAME: eMail,
+                USERNAME: email,
                 PASSWORD: password
             }
         }
