@@ -9,10 +9,8 @@ module.exports.handler = async (event, context) => {
 
     const token = authorizationHeader.split(' ')[1];
 
-        const { email } = JSON.parse(event.body)
         
         const params = {
-            Username: email,
             AccessToken: token,
         };
 

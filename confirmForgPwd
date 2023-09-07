@@ -1,4 +1,4 @@
-module.exports.confirmforgotpwd = async (event) => {
+module.exports.handler = async (event) => {
     try {
         const { email, confirmationCode, password } = JSON.parse(event.body)
         const client_id = process.env.COGNITO_CLIENT_ID;
