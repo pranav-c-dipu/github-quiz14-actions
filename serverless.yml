@@ -18,6 +18,9 @@ provider:
         - cognito-idp:ConfirmSignUp
         - cognito-idp:AdminCreateUse
         - cognito-idp:AdminConfirmSignUp
+        - cognito-idp:AdminGetUser
+        - cognito-idp:ForgotPassword
+        - cognito-idp:ConfirmForgotPassword        
       Resource: "*"
 
 
@@ -59,6 +62,33 @@ functions:
           method: post
           path: user/signup 
           cors: true
+
+  getUser:
+    handler: get_user.handler
+    events:
+      - http:
+          method: post
+          path: Quiz 
+          cors: true    
+
+
+  forgotPassword:
+    handler: forgotPwd.handler
+    events:
+      - http:
+          method: post
+          path: Quiz 
+          cors: true   
+
+  confirmPassword:
+    handler: confirmForgPwd.handler
+    events:
+      - http:
+          method: post
+          path: Quiz 
+          cors: true            
+        
+
 
 
   userSignupConfirmation: 
