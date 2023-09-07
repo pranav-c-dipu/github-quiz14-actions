@@ -4,7 +4,7 @@ const cognito= new aws.CognitoIdentityServiceProvider();
 module.exports.handler = async (event) => {
     try {
         const requestBody = JSON.parse(event.body);
-        const { email, name, country, phone_number, password, birthdate } = requestBody;
+        const { email, name, country, phoneNumber, password, birthdate } = requestBody;
         console.log(event.body);
         console.log('Parsed Request Body:', requestBody);
         groupName = "USER";
@@ -27,7 +27,7 @@ module.exports.handler = async (event) => {
                 },
                 {
                     Name: 'phone_number',
-                    Value: phone_number
+                    Value: phoneNumber
                 },
                 {
                     Name: 'custom:country',
