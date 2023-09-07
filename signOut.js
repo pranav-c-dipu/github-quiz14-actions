@@ -4,12 +4,16 @@ const cognito = new AWS.CognitoIdentityServiceProvider();
 
 module.exports.handler = async (event, context) => {
     try {
-        const { Authorization } = event.headers;
+        
+    const authorizationHeader = event.headers['Authorization'];
+
+    const token = authorizationHeader.split(' ')[1];
+
         const { email } = JSON.parse(event.body)
-        const accessToken = Authorization;
+        
         const params = {
             Username: email,
-            AccessToken: accessToken,
+            AccessToken: token,
         };
 
         await cognito.globalSignOut(params).promise();
