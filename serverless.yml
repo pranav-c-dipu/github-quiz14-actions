@@ -104,11 +104,7 @@ functions:
           path: user/confirmsignup
           method: post
           cors: true
-    # iamRoleStatements:
-    #   - Effect: Allow
-    #     Action:
-    #       - cognito-idp:ConfirmSignUp
-    #     Resource: arn:aws:cognito-idp:ap-south-1:594264654627:userpool/ap-south-1_oMWDjn0y7
+
 
   loginUser:
     handler: userSignIn.handler
