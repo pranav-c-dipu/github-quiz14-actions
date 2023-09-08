@@ -7,11 +7,11 @@ module.exports.handler = async (event, context) => {
         
     const authorizationHeader = event.headers['Authorization'];
 
-    const token = authorizationHeader.split(' ')[1];
+    const AccessToken = authorizationHeader.split(' ')[1];
 
         
         const params = {
-            AccessToken: token,
+            AccessToken: AccessToken,
         };
 
         await cognito.globalSignOut(params).promise();
