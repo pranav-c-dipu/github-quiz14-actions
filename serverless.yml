@@ -116,6 +116,7 @@ functions:
       - http:
           path: user/login
           method: post
+          cors: true
 
   signOut:
     handler: signOut.handler
