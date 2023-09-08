@@ -20,7 +20,7 @@ exports.handler = async (event) => {
     const params = {
         UserPoolId: user_pool_id,
         Username: email,
-        AccessToken: token
+        token : token
     };
     const response = await cognito.adminGetUser(params).promise();
     const userAttributes = response.UserAttributes;

@@ -20,7 +20,8 @@ module.exports.handler = async (event) => {
         console.log(response);
         return sendResponse(200, {
             message: 'Success', refreshToken:
-                response.AuthenticationResult.RefreshToken, token: response.AuthenticationResult.IdToken,
+                response.AuthenticationResult.RefreshToken, 
+                token: response.AuthenticationResult.IdToken,
                 AccessToken :response.AuthenticationResult.AccessToken
         })
     }
