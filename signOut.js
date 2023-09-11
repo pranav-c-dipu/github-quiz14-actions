@@ -1,6 +1,6 @@
 const AWS = require('aws-sdk');
 const cognito = new AWS.CognitoIdentityServiceProvider();
-
+const user_pool_id = process.env.COGNITO_USER_POOL_ID;
 
 module.exports.handler = async (event, context) => {
     try {
@@ -11,10 +11,12 @@ module.exports.handler = async (event, context) => {
 
         
         const params = {
-            AccessToken: accessToken,
+          Username: email,
+          user_pool_id
+
         };
 
-        await cognito.globalSignOut(params).promise();
+        await cognito.adminUserGlobalSignOut(params).promise();
         return sendResponse(200,{success : true, message : 'Logout Completed successfully'});
     } catch (error) {
         console.error('Error during global signout:', error);

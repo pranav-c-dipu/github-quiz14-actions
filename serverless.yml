@@ -21,7 +21,8 @@ provider:
         - cognito-idp:AdminGetUser
         - cognito-idp:ForgotPassword
         - cognito-idp:ConfirmForgotPassword
-        - cognito-idp:GlobalSignOut        
+        - cognito-idp:GlobalSignOut 
+        - cognito-idp:AdminUserGlobalSignOut       
       Resource: "*"
 
 
@@ -120,10 +121,10 @@ functions:
       - http:
           path: user/logout
           method: post
-          authorizer:
-              name: QuizAuthorizer
-              type: COGNITO_USER_POOLS
-              arn: !GetAtt UserPool.Arn           
+          # authorizer:
+          #     name: QuizAuthorizer
+          #     type: COGNITO_USER_POOLS
+          #     arn: !GetAtt UserPool.Arn           
 
 
 
