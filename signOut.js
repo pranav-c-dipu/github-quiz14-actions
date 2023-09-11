@@ -5,9 +5,9 @@ const user_pool_id = process.env.COGNITO_USER_POOL_ID;
 module.exports.handler = async (event, context) => {
     try {
         
-    const authorizationHeader = event.headers['Authorization'];
+    // const authorizationHeader = event.headers['Authorization'];
 
-    const accessToken = authorizationHeader.split(' ')[1];
+    // const accessToken = authorizationHeader.split(' ')[1];
 
         
         const params = {
