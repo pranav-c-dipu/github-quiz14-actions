@@ -12,7 +12,7 @@ module.exports.handler = async (event, context) => {
         
         const params = {
           Username: email,
-          user_pool_id
+          UserPoolId: user_pool_id
 
         };
 
