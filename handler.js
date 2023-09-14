@@ -4,10 +4,36 @@ const db = new AWS.DynamoDB.DocumentClient();
 
 const tableName = process.env.table_name;
 
-exports.getallQuiz = async (event) => {
+exports.getAllQuiz = async (event) => {
+
+
+  try {
+    const authorizationHeader = event.headers['Authorization'];
+    const token = authorizationHeader.split(' ')[1];
+
+
+    const params = {
+      TableName: tableName,
+      token: token
+    };
+    const response = await db.scan(params).promise();
+    return sendResponse(200, response);
+  }
+  catch (err) {
+    console.log(err);
+    response = err.message;
+    return sendResponse(500, response);
+  }
+};
+
+exports.getQuiz = async (event) => {
 
   try {
     console.log(JSON.stringify(event));
+
+    const authorizationHeader = event.headers['Authorization'];
+
+    const token = authorizationHeader.split(' ')[1];
 
     const quizId = event.queryStringParameters.quizId;
 
@@ -15,6 +41,7 @@ exports.getallQuiz = async (event) => {
 
     const params = {
       TableName: tableName,
+      token: token,
       FilterExpression: "quizId = :quizId",
       ExpressionAttributeValues: {
         ":quizId": quizId
@@ -35,9 +62,17 @@ exports.getallQuiz = async (event) => {
 
 
 exports.createQuiz = async (event) => {
+
+  try {
+    const authorizationHeader = event.headers['Authorization'];
+
+    const token = authorizationHeader.split(' ')[1];
+
+
   const Body = JSON.parse(event.body);
   const params = {
     TableName: tableName,
+    token: token,
     Item: {
       quizId: Body.quizId,
       questions: Body.questions,
@@ -45,10 +80,10 @@ exports.createQuiz = async (event) => {
     },
   };
 
-  try {
+ 
 
-    await db.put(params).promise();
-    return sendResponse(200, { message: 'Quiz data saved successfully' });
+   const response =  await db.put(params).promise();
+    return sendResponse(200, { message: 'Quiz data saved successfully',response });
 
   }
   catch (error) {

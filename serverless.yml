@@ -34,7 +34,6 @@ functions:
     handler: handler.createQuiz
     environment:
       QUIZ_TABLE_NAME: !Ref quizTable
-
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -45,9 +44,14 @@ functions:
           method: post
           path: createQuiz
           cors: true
+          authorizer:
+              name: QuizAuthorizer
+              type: COGNITO_USER_POOLS
+              arn: !GetAtt UserPool.Arn 
 
-  getallQuiz:
-    handler: handler.getallQuiz
+ 
+  getAllQuiz:
+    handler: handler.getAllQuiz
     iamRoleStatements:
       - Effect: Allow
         Action: 
@@ -57,7 +61,28 @@ functions:
       - http:
           path: getallQuiz
           method: get
-          cors: true         
+          cors: true
+          authorizer:
+              name: QuizAuthorizer
+              type: COGNITO_USER_POOLS
+              arn: !GetAtt UserPool.Arn           
+ 
+  getQuizByID:
+    handler: handler.getQuiz
+    iamRoleStatements:
+      - Effect: Allow
+        Action: 
+          - dynamodb:Scan
+        Resource: !GetAtt quizTable.Arn 
+    events:
+      - http:
+          path: getQuizByID
+          method: get
+          cors: true  
+          authorizer:
+              name: QuizAuthorizer
+              type: COGNITO_USER_POOLS
+              arn: !GetAtt UserPool.Arn                  
 
   userSignUp:
     handler: userSignup.handler
