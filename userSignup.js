@@ -7,7 +7,7 @@ module.exports.handler = async (event) => {
         const { email, name, country, phoneNumber, password, birthdate, groupName } = requestBody;
         console.log(event.body);
         console.log('Parsed Request Body:', requestBody);
-        // groupName = "USER";
+      
 
         const user_pool_id = process.env.COGNITO_USER_POOL_ID;
         const client_id = process.env.COGNITO_CLIENT_ID;
@@ -42,7 +42,7 @@ module.exports.handler = async (event) => {
                     Value: birthdate
                 }
             ],
-            // MessageAction: 'SUPPRESS'
+          
         }
         // console.log('Paramsssssssssssssss:', params);
 
