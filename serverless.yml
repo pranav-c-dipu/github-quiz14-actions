@@ -196,7 +196,7 @@ resources:
     AdminsGroup:
       Type: AWS::Cognito::UserPoolGroup
       Properties: 
-        Description: "Admins"
+        Description: "ADMINS"
         GroupName: "ADMIN"
         Precedence: 2
         #RoleArn: ""
@@ -210,3 +210,5 @@ resources:
         Precedence: 3
         #RoleArn: ""
         UserPoolId: !Ref UserPool
+
+
