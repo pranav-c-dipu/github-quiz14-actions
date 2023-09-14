@@ -50,7 +50,7 @@ functions:
               arn: !GetAtt UserPool.Arn 
 
  
-  getAllQuiz:
+  getallQuiz:
     handler: handler.getAllQuiz
     iamRoleStatements:
       - Effect: Allow
