@@ -47,6 +47,13 @@ module.exports.handler = async (event) => {
         // console.log('Paramsssssssssssssss:', params);
 
         const response = await cognito.signUp(params).promise();
+
+        const userId = response.UserSub;
+
+    console.log('User ID:*****************', userId);
+
+    
+
         console.log(response);
         const paramsForGroup = {
             GroupName: groupName,
@@ -56,7 +63,11 @@ module.exports.handler = async (event) => {
         const addUsertoGroup = await
             cognito.adminAddUserToGroup(paramsForGroup).promise();
         console.log(addUsertoGroup);
-        return sendResponse(200, { message: 'User registration successful' })
+
+        return sendResponse(200, { message: 'User registration successful',
+        userID: userId
+     })
+
     }
     catch (error) {
         console.error("cloudwatch log", error);
