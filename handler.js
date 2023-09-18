@@ -58,6 +58,38 @@ exports.getQuiz = async (event) => {
   }
 };
 
+exports.getQuizAdmin = async (event) => {
+
+  try {
+    console.log(JSON.stringify(event));
+
+    const authorizationHeader = event.headers['Authorization'];
+
+    const token = authorizationHeader.split(' ')[1];
+
+    const userId = event.queryStringParameters.userID;
+
+
+
+    const params = {
+      TableName: tableName,
+      token: token,
+      FilterExpression: "userId = :userId",
+      ExpressionAttributeValues: {
+        ":userId": userId 
+      }
+    };
+
+    const response = await db.scan(params).promise();
+    return sendResponse(200, response);
+  } catch (err) {
+    console.error(err);
+
+
+    return sendResponse(400, { error: err.message });
+  }
+};
+
 
 
 
