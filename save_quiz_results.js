@@ -45,19 +45,3 @@ exports.handler = async (event) => {
 };
 
 
-const sendResponse = (statusCode, body) => {
-    const response = {
-      statusCode: statusCode,
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json',
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET,POST,PUT,DELETE,OPTIONS',
-        'Access-Control-Allow-Headers':
-          'Content-Type,X-Amz-Date,X-Api-Key,X-Amz-Security-Token,Authorization,Content-Length,X-Request-With',
-        'Access-Control-Allow-Credentials': true
-      }
-    };
-    return response;
-  };
-  
