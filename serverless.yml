@@ -179,6 +179,7 @@ plugins:
 
 resources:
   Resources:
+  
     quizTable:
       Type: AWS::DynamoDB::Table
       Properties:
@@ -195,6 +196,7 @@ resources:
       Type: AWS::DynamoDB::Table
       Properties:
         TableName: Quiz-Results
+        BillingMode: PAY_PER_REQUEST             
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S 
