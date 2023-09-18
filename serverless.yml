@@ -9,6 +9,8 @@ provider:
     COGNITO_USER_POOL_ID: !Ref UserPool
     COGNITO_CLIENT_ID:  !Ref UserClient
     table_name: !Ref quizTable
+    quiz_resultsDb: !Ref quizResults
+
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -150,7 +152,23 @@ functions:
           authorizer:
               name: QuizAuthorizer
               type: COGNITO_USER_POOLS
-              arn: !GetAtt UserPool.Arn           
+              arn: !GetAtt UserPool.Arn  
+
+  storeQuizResults:
+    handler: save-quiz_results.handler
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:PutItem
+        Resource: !GetAtt quizResults.Arn    
+    events:
+      - http:
+          path: store/Quiz-results
+          method: post     
+          authorizer:
+              name: QuizAuthorizer
+              type: COGNITO_USER_POOLS
+              arn: !GetAtt UserPool.Arn                            
 
 
 
@@ -172,6 +190,18 @@ resources:
         KeySchema:
           - AttributeName: quizId
             KeyType: HASH
+
+    quizResults:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Quiz-Results
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S 
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          
 
     UserPool:
       Type: AWS::Cognito::UserPool
