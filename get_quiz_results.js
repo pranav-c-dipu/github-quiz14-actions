@@ -3,7 +3,7 @@ const dynamoDB = new AWS.DynamoDB.DocumentClient();
 
 const tableName = process.env.quiz_resultsDb;
 
-exports.getAllQuiz = async (event) => {
+exports.handler = async (event) => {
 
 
   try {
