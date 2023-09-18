@@ -155,7 +155,7 @@ functions:
               arn: !GetAtt UserPool.Arn  
 
   storeQuizResults:
-    handler: save-quiz_results.handler
+    handler: save_quiz_results.handler
     iamRoleStatements:
       - Effect: Allow
         Action:
@@ -179,7 +179,7 @@ plugins:
 
 resources:
   Resources:
-  
+
     quizTable:
       Type: AWS::DynamoDB::Table
       Properties:

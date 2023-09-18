@@ -22,7 +22,7 @@ module.exports.handler = async (event) => {
             message: 'Success', refreshToken:
                 response.AuthenticationResult.RefreshToken, 
                 token: response.AuthenticationResult.IdToken,
-                AccessToken :response.AuthenticationResult.AccessToken
+              
         })
     }
     catch (error) {
