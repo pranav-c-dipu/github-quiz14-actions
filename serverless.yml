@@ -67,7 +67,24 @@ functions:
           authorizer:
               name: QuizAuthorizer
               type: COGNITO_USER_POOLS
-              arn: !GetAtt UserPool.Arn           
+              arn: !GetAtt UserPool.Arn 
+
+  getQuizResults:
+    handler: get_quiz_results.handler
+    iamRoleStatements:
+      - Effect: Allow
+        Action: 
+          - dynamodb:Scan
+        Resource: !GetAtt quizResults.Arn 
+    events:
+      - http:
+          path: getQuizResults
+          method: get
+          cors: true
+          authorizer:
+              name: QuizAuthorizer
+              type: COGNITO_USER_POOLS
+              arn: !GetAtt UserPool.Arn                          
  
   getQuizByID:
     handler: handler.getQuiz
