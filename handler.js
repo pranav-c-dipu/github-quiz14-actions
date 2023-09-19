@@ -98,6 +98,8 @@ exports.createQuiz = async (event) => {
   try {
     const authorizationHeader = event.headers['Authorization'];
 
+    const userID = event.queryStringParameters.userID;
+
     const token = authorizationHeader.split(' ')[1];
 
 
@@ -109,7 +111,7 @@ exports.createQuiz = async (event) => {
       quizId: Body.quizId,
       questions: Body.questions,
       quizName: Body.quizName,
-      userId: Body.userID
+      userId: userID
     },
   };
 
