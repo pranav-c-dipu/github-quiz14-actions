@@ -44,7 +44,7 @@ functions:
     events:
       - http:
           method: post
-          path: createQuiz
+          path: createQuiz/{userID}
           cors: true
           authorizer:
               name: QuizAuthorizer
@@ -95,7 +95,7 @@ functions:
         Resource: !GetAtt quizTable.Arn 
     events:
       - http:
-          path: getQuizByID
+          path: getQuizByID/{quizId}
           method: get
           cors: true  
           authorizer:
@@ -112,7 +112,7 @@ functions:
         Resource: !GetAtt quizTable.Arn 
     events:
       - http:
-          path: Admin/getQuiz/userID
+          path: Admin/getQuiz/userID/{userID}
           method: get
           cors: true  
           authorizer:
