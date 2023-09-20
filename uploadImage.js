@@ -22,7 +22,7 @@ exports.handler = async (event) => {
             Key: key,
             Body: imageBuffer,
             ContentType: contentType, // Use the provided content type
-            ACL: 'public-read', // Make the uploaded image public or private as needed
+            
         };
 
         // Upload the image to S3
