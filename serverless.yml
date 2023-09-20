@@ -204,6 +204,16 @@ functions:
               type: COGNITO_USER_POOLS
               arn: !GetAtt UserPool.Arn                            
 
+  imageUploadFunction:
+    handler: uploadImage.handler 
+    description: Lambda function for uploading images to S3
+    events:
+      - http:
+          path: uploadImage
+          method: post 
+          cors: true
+    environment:
+      AWS_S3_BUCKET_NAME: quiz_image_bucket 
 
 
 
@@ -237,7 +247,13 @@ resources:
         KeySchema:
           - AttributeName: id
             KeyType: HASH
+
+    ImageUploadS3Bucket:
+      Type: AWS::S3::Bucket
+      Properties:
+        BucketName: quiz_image_bucket 
           
+            
 
     UserPool:
       Type: AWS::Cognito::UserPool
