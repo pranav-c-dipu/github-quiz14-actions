@@ -24,7 +24,9 @@ provider:
         - cognito-idp:ForgotPassword
         - cognito-idp:ConfirmForgotPassword
         - cognito-idp:GlobalSignOut 
-        - cognito-idp:AdminUserGlobalSignOut       
+        - cognito-idp:AdminUserGlobalSignOut  
+        - s3:PutObject
+        - s3:GetObject             
       Resource: "*"
 
 
@@ -213,7 +215,7 @@ functions:
           method: post 
           cors: true
     environment:
-      AWS_S3_BUCKET_NAME: quiz_image_bucket 
+      AWS_S3_BUCKET_NAME: quizImageBucket  
 
 
 
@@ -251,7 +253,7 @@ resources:
     ImageUploadS3Bucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName: quiz_image_bucket 
+        BucketName: quizImageBucket 
           
             
 
