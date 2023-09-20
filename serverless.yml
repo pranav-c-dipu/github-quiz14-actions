@@ -215,7 +215,7 @@ functions:
           method: post 
           cors: true
     environment:
-      AWS_S3_BUCKET_NAME: quiz-images-bucket
+      AWS_S3_BUCKET_NAME: quiz-image-bucket
 
 
 
@@ -253,7 +253,7 @@ resources:
     ImageUploadS3Bucket:
       Type: AWS::S3::Bucket
       Properties:
-        BucketName:  quiz-images-bucket
+        BucketName:  quiz-image-bucket
           
             
 
