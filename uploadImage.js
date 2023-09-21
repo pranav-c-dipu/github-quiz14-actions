@@ -12,7 +12,7 @@ exports.handler = async (event) => {
         const image_data = requestBody.image_data;
 
       
-         const key = `images/${image_name}.${getFormatFromContentType(contentType)}`;
+         const key = `images/${image_name}`;
          console.log("file name",image_name);
          console.log("full key",key);
          
