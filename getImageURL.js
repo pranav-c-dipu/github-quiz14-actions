@@ -13,6 +13,7 @@ exports.handler = async (event) => {
         };
 
         const imageUrl = await s3.getSignedUrl('getObject', params);
+        console.log(imageUrl);
 
         return {
             statusCode: 200,
