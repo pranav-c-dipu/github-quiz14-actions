@@ -11,7 +11,7 @@ exports.handler = async (event) => {
         const contentType = event.headers['Content-Type'];
 
       
-        const key = `images/${Date.now()}.${getFormatFromContentType(contentType)}`;
+        const key = `images/${event.imageFileName}`;
 
       
         const imageBuffer = Buffer.from(base64Image, 'base64');
