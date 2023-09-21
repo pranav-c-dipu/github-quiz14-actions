@@ -7,19 +7,20 @@ exports.handler = async (event) => {
     try {
 
         const bucket_name = process.env.AWS_S3_BUCKET_NAME;
-        const base64Image = event.body; 
-        const contentType = event.headers['Content-Type'];
+        const requestBody = JSON.parse(event.body);
+        const image_name = requestBody.image_name;
+        const image_data = requestBody.image_data;
 
       
-         const key = `images/${event.imageFileName}.${getFormatFromContentType(contentType)}`;
-
-         console.log(key);
+         const key = `images/${image_name}.${getFormatFromContentType(contentType)}`;
+         console.log("file name",image_name);
+         console.log("full key",key);
          
 
          
 
       
-        const imageBuffer = Buffer.from(base64Image, 'base64');
+         const imageBuffer = Buffer.from(image_data, 'base64');
 
        
         const params = {
