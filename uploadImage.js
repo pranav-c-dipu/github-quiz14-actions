@@ -56,15 +56,15 @@ exports.handler = async (event) => {
     }
 };
 
-function getFormatFromContentType(contentType) {
-    switch (contentType) {
-        case 'image/jpeg':
-            return 'jpg';
-        case 'image/png':
-            return 'png';
-        case 'image/gif':
-            return 'gif';
-        default:
-            return 'jpg'; 
-    }
-}
+// function getFormatFromContentType(contentType) {
+//     switch (contentType) {
+//         case 'image/jpeg':
+//             return 'jpg';
+//         case 'image/png':
+//             return 'png';
+//         case 'image/gif':
+//             return 'gif';
+//         default:
+//             return 'jpg'; 
+//     }
+// }
