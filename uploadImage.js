@@ -13,6 +13,9 @@ exports.handler = async (event) => {
       
          const key = `images/${event.imageFileName}.${getFormatFromContentType(contentType)}`;
 
+         console.log(key);
+         
+
          
 
       
@@ -23,7 +26,7 @@ exports.handler = async (event) => {
             Bucket: bucket_name, 
             Key: key,
             Body: imageBuffer,
-            ContentType: contentType,        
+            ContentType: 'image/jpeg',        
         };
 
       
