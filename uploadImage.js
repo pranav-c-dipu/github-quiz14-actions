@@ -21,16 +21,15 @@ exports.handler = async (event) => {
             Bucket: bucket_name, 
             Key: key,
             Body: imageBuffer,
-            ContentType: contentType, 
-            
+            ContentType: contentType,        
         };
 
       
-        await s3.putObject(params).promise();
+        const result = await s3.upload(params).promise();
 
         const response = {
             statusCode: 200,
-            body: JSON.stringify('Image uploaded successfully'),
+            body: JSON.stringify('Image uploaded successfully', result),
             headers: {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
