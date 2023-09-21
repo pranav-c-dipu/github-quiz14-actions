@@ -30,7 +30,7 @@ exports.handler = async (event) => {
         };
 
       
-        const result = await s3.upload(params).promise();
+        const result = await s3.PutObject(params).promise();
 
         const response = {
             statusCode: 200,
