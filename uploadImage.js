@@ -11,7 +11,9 @@ exports.handler = async (event) => {
         const contentType = event.headers['Content-Type'];
 
       
-        const key = `images/${event.imageFileName}`;
+         const key = `images/${event.imageFileName}.${getFormatFromContentType(contentType)}`;
+
+         
 
       
         const imageBuffer = Buffer.from(base64Image, 'base64');
@@ -56,15 +58,15 @@ exports.handler = async (event) => {
     }
 };
 
-// function getFormatFromContentType(contentType) {
-//     switch (contentType) {
-//         case 'image/jpeg':
-//             return 'jpg';
-//         case 'image/png':
-//             return 'png';
-//         case 'image/gif':
-//             return 'gif';
-//         default:
-//             return 'jpg'; 
-//     }
-// }
+function getFormatFromContentType(contentType) {
+    switch (contentType) {
+        case 'image/jpeg':
+            return 'jpg';
+        case 'image/png':
+            return 'png';
+        case 'image/gif':
+            return 'gif';
+        default:
+            return 'jpg'; 
+    }
+}
