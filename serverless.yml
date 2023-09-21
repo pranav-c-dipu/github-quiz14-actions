@@ -216,6 +216,15 @@ functions:
     environment:
       AWS_S3_BUCKET_NAME: quiz-image-bucket
 
+  getImageUrl:
+    handler: getImageURL.handler
+    environment:
+      AWS_S3_BUCKET_NAME: quiz-image-bucket
+    events:
+      - http:
+          path: get-image-url
+          method: POST      
+
 
 
 
