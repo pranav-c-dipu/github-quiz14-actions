@@ -1,24 +1,17 @@
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 
-
-
 exports.handler = async (event) => {
     try {
 
         const bucket_name = process.env.AWS_S3_BUCKET_NAME;
         const requestBody = JSON.parse(event.body);
         const image_name = requestBody.image_name;
-        const image_data = requestBody.image_data;
-
-      
+        const image_data = requestBody.image_data;  
          const key = `images/${image_name}`;
          console.log("file name",image_name);
          console.log("full key",key);
-         
-
-         
-
+        
       
          const imageBuffer = Buffer.from(image_data, 'base64');
 
@@ -28,10 +21,8 @@ exports.handler = async (event) => {
             Key: key,
             Body: imageBuffer,
             ContentType: 'image/jpeg',        
-        };
-
-      
-        const result = await s3.PutObject(params).promise();
+        };  
+        const result = await s3.putObject(params).promise();
 
         const response = {
             statusCode: 200,
