@@ -4,7 +4,8 @@ const s3 = new AWS.S3();
 exports.handler = async (event) => {
     try {
         const bucketName = process.env.AWS_S3_BUCKET_NAME;
-        const imageFileName = event.imageFileName; 
+        const requestBody = JSON.parse(event.body);
+        const imageFileName = requestBody.imageFileName;
         console.log("keynamee", imageFileName);
 
         const params = {
