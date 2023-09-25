@@ -75,7 +75,7 @@ exports.getQuizAdmin = async (event) => {
 
     const params = {
       TableName: tableName,
-      token: token,
+      // token: token,
       FilterExpression: "userId = :userId",
       ExpressionAttributeValues: {
         ":userId": userId 
