@@ -120,7 +120,7 @@ exports.createQuiz = async (event) => {
       questions: Body.questions,
       quizName: Body.quizName,
       userId: userID,
-      users: users, //  empty "users" list 
+      users: users, 
     },
   };
 
