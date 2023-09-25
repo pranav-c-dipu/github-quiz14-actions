@@ -21,6 +21,10 @@ exports.handler = async (event) => {
   
       // Filter users who attended the quiz
       const attendedUsers = quizDetails.Item.users.filter(user => user.attempted === 'Attempted');
+
+      console.log("attendedUsers", attendedUsers);
+
+      
   
       return sendResponse(200, { message: 'Users who attended the quiz', users: attendedUsers });
     } catch (error) {

@@ -15,15 +15,21 @@ exports.handler = async (event) => {
       };
   
       const quizDetails = await db.get(quizDetailsParams).promise();
+      
   
       // Find the user's existing details in the quiz's "users" list
       const existingUserDetails = quizDetails.Item.users.find(user => user.userId === userId);
+
+      console.log("user details", existingUserDetails);
   
       // Calculate the number of attempts
       let noOfAttempt = 0;
       if (existingUserDetails) {
         // If the user already exists, increment the number of attempts
         noOfAttempt = parseInt(existingUserDetails.noOfAttempt) + 1;
+
+        
+      console.log("noOfAttempt", noOfAttempt);
       } else {
         // If the user doesn't exist, it's their first attempt
         noOfAttempt = 1;
@@ -42,7 +48,11 @@ exports.handler = async (event) => {
       if (existingUserDetails) {
         // Update the existing user's details
         const userIndex = quizDetails.Item.users.findIndex(user => user.userId === userId);
+
+        console.log("nuserIndext", userIndex);
+
         quizDetails.Item.users[userIndex] = userDetails;
+        
       } else {
         // Add the new user's details
         quizDetails.Item.users.push(userDetails);

@@ -24,6 +24,8 @@ exports.handler = async (event) => {
    
       const userAttempt = quiz.users.find(user => user.userId === userId);
 
+      console.log("userAttempt",userAttempt);
+
       if (userAttempt && userAttempt.attempted === 'Attempted') {
         attemptedQuizzes.push(quiz);
       } else {
