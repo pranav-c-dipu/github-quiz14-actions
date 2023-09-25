@@ -63,15 +63,15 @@ exports.getQuizAdmin = async (event) => {
   try {
     console.log(JSON.stringify(event));
 
-    const authorizationHeader = event.headers['Authorization'];
+    // const authorizationHeader = event.headers['Authorization'];
 
-    const token = authorizationHeader.split(' ')[1];
+    // const token = authorizationHeader.split(' ')[1];
 
-    // const userId = event.pathParameters.userID;
+  
 
-    const userId = event.queryStringParameters.userID;
+    // const userId = event.queryStringParameters.userID;
 
-
+  // const userId = event.pathParameters.userID;
 
     const params = {
       TableName: tableName,
