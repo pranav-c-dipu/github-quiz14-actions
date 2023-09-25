@@ -20,7 +20,7 @@ exports.handler = async (event) => {
       // Find the user's existing details in the quiz's "users" list
       const existingUserDetails = quizDetails.Item.users.find(user => user.userId === userId);
 
-      console.log("user details", existingUserDetails);
+      console.log("us details", existingUserDetails);
   
       // Calculate the number of attempts
       let noOfAttempt = 0;
@@ -52,7 +52,7 @@ exports.handler = async (event) => {
         console.log("nuserIndext", userIndex);
 
         quizDetails.Item.users[userIndex] = userDetails;
-        
+
       } else {
         // Add the new user's details
         quizDetails.Item.users.push(userDetails);
