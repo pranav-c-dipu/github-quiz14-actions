@@ -123,7 +123,7 @@ exports.createQuiz = async (event) => {
       questions: Body.questions,
       quizName: Body.quizName,
       userId: userID,
-      users: users, 
+      // users: users, 
     },
   };
 
