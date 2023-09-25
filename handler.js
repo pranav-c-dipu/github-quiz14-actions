@@ -67,7 +67,9 @@ exports.getQuizAdmin = async (event) => {
 
     const token = authorizationHeader.split(' ')[1];
 
-    const userId = event.pathParameters.userID;
+    // const userId = event.pathParameters.userID;
+
+    const userId = event.queryStringParameters.userID;
 
 
 
@@ -98,9 +100,10 @@ exports.createQuiz = async (event) => {
   try {
     const authorizationHeader = event.headers['Authorization'];
 
-    const userID = event.pathParameters.userID;
 
     const token = authorizationHeader.split(' ')[1];
+
+    const userID = event.pathParameters.userID;
 
 
   const Body = JSON.parse(event.body);
