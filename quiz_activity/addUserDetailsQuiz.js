@@ -20,7 +20,7 @@ exports.handler = async (event) => {
       // Find the user's existing details in the quiz's "users" list
       const existingUserDetails = quizDetails.Item.users.find(user => user.userId === userId);
 
-      console.log("us details", existingUserDetails);
+      console.log("us deails", existingUserDetails);
   
       // Calculate the number of attempts
       let noOfAttempt = 0;
