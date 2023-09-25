@@ -45,7 +45,7 @@ functions:
         Resource: !GetAtt quizTable.Arn
     events:
       - http:
-          method: put
+          method: post
           path: admin/createQuiz
           cors: true
           authorizer:
