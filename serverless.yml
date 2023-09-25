@@ -48,10 +48,10 @@ functions:
           method: put
           path: Admin/createQuiz/{userID}
           cors: true
-          # authorizer:
-          #     name: QuizAuthorizer
-          #     type: COGNITO_USER_POOLS
-          #     arn: !GetAtt UserPool.Arn 
+          authorizer:
+              name: QuizAuthorizer
+              type: COGNITO_USER_POOLS
+              arn: !GetAtt UserPool.Arn 
 
  
   getallQuiz:
