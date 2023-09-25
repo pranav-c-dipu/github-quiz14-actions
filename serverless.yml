@@ -120,8 +120,10 @@ functions:
           authorizer:
               name: QuizAuthorizer
               type: COGNITO_USER_POOLS
-              arn: !GetAtt UserPool.Arn                              
+              arn: !GetAtt UserPool.Arn    
 
+
+                 
   userSignUp:
     handler: userSignup.handler
     events:
@@ -190,6 +192,54 @@ functions:
               type: COGNITO_USER_POOLS
               arn: !GetAtt UserPool.Arn  
 
+
+              # QUIZ ACTIVITY
+
+  addUserDetailsToQuiz:
+    handler: quiz_activity/addUserDetailsQuiz.handler
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:GetItem
+          - dynamodb:PutItem
+          - dynamodb:UpdateItem                          
+        Resource: !GetAtt quizTable.Arn      
+    events:
+      - http:
+          path: addUserDetailsToQuiz/{quizId}/{userId}
+          method: post       
+          description: Add or update user details for a specific quiz.          
+
+
+  quizAttendance:
+    handler: quiz_activity/quizAttendance.handler
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:GetItem                       
+        Resource: !GetAtt quizTable.Arn      
+    events:
+      - http:
+          path: quizAttendance/{quizId}
+          method: get   
+          description: Add or update user details for a specific quiz.
+          
+
+  getUserActivity:
+    handler: quiz_activity/UserActivity.handler
+    iamRoleStatements:
+      - Effect: Allow
+        Action:
+          - dynamodb:Scan               
+        Resource: !GetAtt quizTable.Arn      
+    events:
+      - http:
+          path: getUserActivity/{userId}
+          method: get   
+          description: Retrieve a users activity.                    
+
+
+
   storeQuizResults:
     handler: save_quiz_results.handler
     iamRoleStatements:
@@ -228,6 +278,7 @@ functions:
 
 
 
+
 plugins:
   - serverless-iam-roles-per-function  
 
@@ -242,9 +293,14 @@ resources:
         AttributeDefinitions:
           - AttributeName: quizId
             AttributeType: S
+          - AttributeName: userId
+            AttributeType: S
         KeySchema:
           - AttributeName: quizId
             KeyType: HASH
+          - AttributeName: userId
+            KeyType: RANGE
+
 
     quizResults:
       Type: AWS::DynamoDB::Table

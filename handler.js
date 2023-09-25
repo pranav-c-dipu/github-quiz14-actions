@@ -104,6 +104,9 @@ exports.createQuiz = async (event) => {
 
 
   const Body = JSON.parse(event.body);
+
+  const users = [];
+
   const params = {
     TableName: tableName,
     token: token,
@@ -111,7 +114,8 @@ exports.createQuiz = async (event) => {
       quizId: Body.quizId,
       questions: Body.questions,
       quizName: Body.quizName,
-      userId: userID
+      userId: userID,
+      users: users, //  empty "users" list 
     },
   };
 
